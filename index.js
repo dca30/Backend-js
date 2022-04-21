@@ -1,3 +1,4 @@
+//Dependencias
 const express = require("express");
 const req = require("express/lib/request");
 const res = require("express/lib/response");
@@ -6,6 +7,11 @@ const cervezasRouter = require("./cervezasRouter");
 const router = require("express").Router();
 const path = require("path");
 const staticRoute = path.join(__dirname, "public");
+const bodyParser = require("body-parser");
+
+//Middlewares
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   const now = new Date().toString();
@@ -14,8 +20,8 @@ app.use((req, res, next) => {
 });
 app.use("/static", express.static(staticRoute));
 
-app.use("/cervezas", cervezasRouter);
-
+app.use("/api/cervezas", cervezasRouter);
+//Rutas y enrutadores
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -32,4 +38,6 @@ app.get("/contactar", function (req, res) {
   res.send("Pagina para contactar");
 });
 
-app.listen(3000);
+app.listen(3000, function () {
+  console.log(`Server running on port 3000`);
+});

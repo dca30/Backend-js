@@ -10,6 +10,7 @@ services:
       - 15001:27017
     volumes:
       - ./mongo-db:/data/db
+      - ./init-db:/docker-entrypoint-initdb.d
 # docker-compose up -d
 # docker-compose up
 # docker-compose down
